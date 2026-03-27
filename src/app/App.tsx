@@ -19,6 +19,13 @@ export default function App() {
   const [showVLMThinking2, setShowVLMThinking2] = useState(false);
   const [selectedAudio, setSelectedAudio] = useState('');
 
+  const files_data = [
+    { id: "1", filename: "hifigan_LA_D_1119156" },
+    { id: "2", filename: "hn-sinc-nsf-hifi_LA_T_3725354" },
+    { id: "3", filename: "hn-sinc-nsf_LA_T_3965355" },
+    { id: "4", filename: "waveglow_LA_D_2407623" }
+  ];
+
   const handleAudioSelect = () => {
     setSpectrogramStage('raw');
   };
@@ -106,6 +113,7 @@ export default function App() {
             onConvert={handleConvert} 
             selectedAudio={selectedAudio}
             onAudioChange={setSelectedAudio}
+            files={files_data}
           />
 
           {/* User Message 1 */}

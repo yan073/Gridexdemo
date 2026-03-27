@@ -1,14 +1,16 @@
 import { Button } from "./ui/button";
 import { ChevronDown } from "lucide-react";
 
+
 interface AudioSelectorProps {
   onAudioSelect: () => void;
   onConvert: () => void;
   selectedAudio: string;
   onAudioChange: (value: string) => void;
+  files: { id: string; filename: string }[];
 }
 
-export function AudioSelector({ onAudioSelect, onConvert, selectedAudio, onAudioChange }: AudioSelectorProps) {
+export function AudioSelector({ onAudioSelect, onConvert, selectedAudio, onAudioChange, files }: AudioSelectorProps) {
   return (
     <div className="flex gap-3 justify-end items-center">
       <div className="relative">
@@ -23,9 +25,11 @@ export function AudioSelector({ onAudioSelect, onConvert, selectedAudio, onAudio
           }}
         >
           <option value="">Select audio...</option>
-          <option value="audio1">sample_audio_001.wav</option>
-          <option value="audio2">sample_audio_002.wav</option>
-          <option value="audio3">sample_audio_003.wav</option>
+          {files.map((file) => (
+            <option key={file.id} value={file.filename}>
+              {file.filename}
+            </option>
+          ))}
         </select>
         <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 size-4 pointer-events-none" />
       </div>
