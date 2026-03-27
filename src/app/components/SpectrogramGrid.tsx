@@ -1,3 +1,5 @@
+import { Play } from "lucide-react";
+
 interface SpectrogramGridProps {
   stage?: 'none' | 'raw' | 'segmented' | 'highlighted' | 'mask';
 }
@@ -33,9 +35,21 @@ export function SpectrogramGrid({ stage = 'none' }: SpectrogramGridProps) {
 
   return (
     <div className="inline-block">
-      {/* Title */}
-      <div className="mb-2">
+      {/* Title with Play Button */}
+      <div className="mb-2 flex items-center justify-between">
         <h3 className="text-sm font-bold text-gray-700">{title}</h3>
+        {stage === 'mask' && (
+          <button 
+            className="flex items-center gap-2 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-medium transition-colors"
+            onClick={() => {
+              // Audio playback functionality will be implemented
+              console.log('Play audio');
+            }}
+          >
+            <Play className="size-4" fill="currentColor" />
+            Play Audio
+          </button>
+        )}
       </div>
       
       {/* Spectrogram Grid */}
