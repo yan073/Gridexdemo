@@ -1,8 +1,9 @@
 interface SpectrogramGridProps {
   stage?: 'none' | 'raw' | 'segmented' | 'highlighted' | 'mask';
+  selectedFile?: { id: string; filename: string; spec: string };
 }
 
-export function SpectrogramGrid({ stage = 'none' }: SpectrogramGridProps) {
+export function SpectrogramGrid({ stage = 'none', selectedFile }: SpectrogramGridProps) {
   if (stage === 'none') {
     return (
       <div className="w-80 h-80 border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center">
@@ -11,11 +12,24 @@ export function SpectrogramGrid({ stage = 'none' }: SpectrogramGridProps) {
     );
   }
 
+  if (stage === 'raw' && selectedFile) {
+    return (
+      <div className="inline-block">
+        <div className="mb-2">
+          <h3 className="text-sm font-bold text-gray-700">Raw Audio Spectrogram</h3>
+        </div>
+        <img
+          src={`/spectrogram/${selectedFile.spec}`}
+          alt="Spectrogram"
+          className="w-80 h-80 object-cover border-2 border-black"
+        />
+      </div>
+    );
+  }
+
   // Determine title based on stage
   let title = '';
-  if (stage === 'raw') {
-    title = 'Raw Audio Spectrogram';
-  } else if (stage === 'segmented') {
+  if (stage === 'segmented') {
     title = '4x4 Segmented Grid';
   } else if (stage === 'highlighted') {
     title = 'Detected Spoof Regions (x, y, z)';
@@ -46,12 +60,8 @@ export function SpectrogramGrid({ stage = 'none' }: SpectrogramGridProps) {
               let backgroundColor = 'bg-white';
               let showLabel = false;
               
-              // Raw stage: solid color, no grid lines visible
-              if (stage === 'raw') {
-                backgroundColor = 'bg-blue-100';
-              }
               // Segmented stage: grid visible but no highlights
-              else if (stage === 'segmented') {
+              if (stage === 'segmented') {
                 backgroundColor = 'bg-white';
               }
               // Highlighted stage: regions x, y, z are highlighted

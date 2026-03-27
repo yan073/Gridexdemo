@@ -20,10 +20,10 @@ export default function App() {
   const [selectedAudio, setSelectedAudio] = useState('');
 
   const files_data = [
-    { id: "1", filename: "hifigan_LA_D_1119156" },
-    { id: "2", filename: "hn-sinc-nsf-hifi_LA_T_3725354" },
-    { id: "3", filename: "hn-sinc-nsf_LA_T_3965355" },
-    { id: "4", filename: "waveglow_LA_D_2407623" }
+    { id: "1", filename: "hifigan_LA_D_1119156", spec: "hifigan.png" },
+    { id: "2", filename: "hn-sinc-nsf-hifi_LA_T_3725354", spec: "hn-sinc-nsf-hifi.png" },
+    { id: "3", filename: "hn-sinc-nsf_LA_T_3965355", spec: "hn-sinc-nsf.png" },
+    { id: "4", filename: "waveglow_LA_D_2407623", spec: "waveglow.png" }
   ];
 
   const handleAudioSelect = () => {
@@ -103,7 +103,7 @@ export default function App() {
               )}
             </div>
             <div className="flex justify-center">
-              <SpectrogramGrid stage={spectrogramStage} />
+              <SpectrogramGrid stage={spectrogramStage} selectedFile={files_data.find(f => f.filename === selectedAudio)} />
             </div>
           </div>
 
