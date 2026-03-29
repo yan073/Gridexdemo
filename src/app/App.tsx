@@ -20,10 +20,26 @@ export default function App() {
   const [selectedAudio, setSelectedAudio] = useState('');
 
   const files_data = [
-    { id: "1", filename: "hifigan_LA_D_1119156", spec: "hifigan.png", regions:[11,13,15] },
-    { id: "2", filename: "hn-sinc-nsf-hifi_LA_T_3725354", spec: "hn-sinc-nsf-hifi.png", regions:[3,10,13] },
-    { id: "3", filename: "hn-sinc-nsf_LA_T_3965355", spec: "hn-sinc-nsf.png", regions:[3,12,13] },
-    { id: "4", filename: "waveglow_LA_D_2407623", spec: "waveglow.png", regions:[4,9,13] }
+    { id: "1", filename: "hifigan_LA_D_1119156", spec: "hifigan.png", regions:[ 
+          {id: 11, T: '', F:'', P:'',  transcript:"This <T>voiced</T> region exhibits harmonic degradation in the <F>mid-frequency band</F> during the <P>consonant \"v\"</P>. The visual evidence shows smeared harmonic stacks instead of clean, periodic patterns, which directly translates to a metallic-sounding speech artifact where the natural harmonic structure is disrupted." },
+          {id: 13, T: '', F:'', P:'',  transcript:''},
+          {id: 15, T: '', F:'', P:'',  transcript:''},
+        ] },
+    { id: "2", filename: "hn-sinc-nsf-hifi_LA_T_3725354", spec: "hn-sinc-nsf-hifi.png", regions:[
+      {id: 3, T: '', F:'', P:'',  transcript:"" },
+      {id: 10, T: '', F:'', P:'',  transcript:"" },
+      {id: 13, T: '', F:'', P:'',  transcript:"" }
+    ] },
+    { id: "3", filename: "hn-sinc-nsf_LA_T_3965355", spec: "hn-sinc-nsf.png", regions:[
+      {id: 3, T: '', F:'', P:'',  transcript:"" }, 
+      {id: 12, T: '', F:'', P:'',  transcript:"" }, 
+      {id: 13, T: '', F:'', P:'',  transcript:"" }
+    ]},
+    { id: "4", filename: "waveglow_LA_D_2407623", spec: "waveglow.png", regions:[
+      {id: 4, T: '', F:'', P:'',  transcript:"" }, 
+      {id: 9, T: '', F:'', P:'',  transcript:"" }, 
+      {id: 13, T: '', F:'', P:'',  transcript:"" }
+    ] }
   ];
 
   const selectedFileObj = files_data.find((f) => f.filename === selectedAudio);
@@ -147,7 +163,7 @@ export default function App() {
               <RobotMessage>
                 <SystemMessage>
                 <p className="text-sm font-bold">
-                  Top 3 Regions with Spoof Artifacts: [{selectedFileObj?.regions?.join(", ") || "x, y, z"}]
+                  Top 3 Regions with Spoof Artifacts: [{selectedFileObj?.regions?.map((r) => r.id).join(", ") || "x, y, z"}]
                 </p>
                 </SystemMessage>
               </RobotMessage>
@@ -168,7 +184,7 @@ export default function App() {
           {showUserPrompt2 && (
             <ChatMessage
               isUser={true}
-              message={`Explain the spoof artifact for each of the three selected region IDs in [${selectedFileObj?.regions?.join(', ') || 'x, y, z'}]. This is the transcript for context: {transcript}`}
+              message={`Explain the spoof artifact for each of the three selected region IDs in [${selectedFileObj?.regions?.map((r) => r.id).join(', ') || 'x, y, z'}]. This is the transcript for context: {transcript}`}
               showTranscript={true}
             />
           )}
