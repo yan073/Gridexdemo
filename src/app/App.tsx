@@ -168,7 +168,7 @@ export default function App() {
           {showUserPrompt2 && (
             <ChatMessage
               isUser={true}
-              message="Explain the spoof artifact for each of the three selected region IDs in [x, y, z]. This is the transcript for context: {transcript}"
+              message={`Explain the spoof artifact for each of the three selected region IDs in [${selectedFileObj?.regions?.join(', ') || 'x, y, z'}]. This is the transcript for context: {transcript}`}
               showTranscript={true}
             />
           )}
