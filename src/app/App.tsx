@@ -20,11 +20,13 @@ export default function App() {
   const [selectedAudio, setSelectedAudio] = useState('');
 
   const files_data = [
-    { id: "1", filename: "hifigan_LA_D_1119156", spec: "hifigan.png" },
-    { id: "2", filename: "hn-sinc-nsf-hifi_LA_T_3725354", spec: "hn-sinc-nsf-hifi.png" },
-    { id: "3", filename: "hn-sinc-nsf_LA_T_3965355", spec: "hn-sinc-nsf.png" },
-    { id: "4", filename: "waveglow_LA_D_2407623", spec: "waveglow.png" }
+    { id: "1", filename: "hifigan_LA_D_1119156", spec: "hifigan.png", regions:[11,13,15] },
+    { id: "2", filename: "hn-sinc-nsf-hifi_LA_T_3725354", spec: "hn-sinc-nsf-hifi.png", regions:[3,10,13] },
+    { id: "3", filename: "hn-sinc-nsf_LA_T_3965355", spec: "hn-sinc-nsf.png", regions:[3,12,13] },
+    { id: "4", filename: "waveglow_LA_D_2407623", spec: "waveglow.png", regions:[4,9,13] }
   ];
+
+  const selectedFileObj = files_data.find((f) => f.filename === selectedAudio);
 
   const handleAudioSelect = () => {
     setSpectrogramStage('raw');
@@ -144,7 +146,9 @@ export default function App() {
             <>
               <RobotMessage>
                 <SystemMessage>
-                  <p className="text-sm font-bold">Top 3 Regions with Spoof Artifacts: [x, y, z]</p>
+                <p className="text-sm font-bold">
+                  Top 3 Regions with Spoof Artifacts: [{selectedFileObj?.regions?.join(", ") || "x, y, z"}]
+                </p>
                 </SystemMessage>
               </RobotMessage>
               
