@@ -121,7 +121,7 @@ export default function App() {
               )}
             </div>
             <div className="flex justify-center">
-              <SpectrogramGrid stage={spectrogramStage} selectedFile={files_data.find(f => f.filename === selectedAudio)} />
+              <SpectrogramGrid stage={spectrogramStage} selectedFile={selectedFileObj} />
             </div>
           </div>
 

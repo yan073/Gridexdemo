@@ -1,6 +1,6 @@
 interface SpectrogramGridProps {
   stage?: 'none' | 'raw' | 'segmented' | 'highlighted' | 'mask';
-  selectedFile?: { id: string; filename: string; spec: string };
+  selectedFile?: { id: string; filename: string; spec: string; regions: Array<{id: number}> };
 }
 
 export function SpectrogramGrid({ stage = 'none', selectedFile }: SpectrogramGridProps) {
@@ -37,7 +37,8 @@ export function SpectrogramGrid({ stage = 'none', selectedFile }: SpectrogramGri
     title = '4x4 Segmented Grid';
     folder = 'grid';
   } else if (stage === 'highlighted') {
-    title = 'Detected Spoof Regions (x, y, z)';
+    const regionIds = selectedFile?.regions?.map((r) => r.id).join(', ') || 'x, y, z';
+    title = `Detected Spoof Regions (${regionIds})`;
     folder = 'selected_grid';
   } else if (stage === 'mask') {
     title = 'Detected Spoof Regions on Mask';
