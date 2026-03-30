@@ -21,24 +21,24 @@ export default function App() {
 
   const files_data = [
     { id: "1", filename: "hifigan_LA_D_1119156", spec: "hifigan.png", regions:[ 
-          {id: 11, T: '', F:'', P:'',  transcript:"This <T>voiced</T> region exhibits harmonic degradation in the <F>mid-frequency band</F> during the <P>consonant \"v\"</P>. The visual evidence shows smeared harmonic stacks instead of clean, periodic patterns, which directly translates to a metallic-sounding speech artifact where the natural harmonic structure is disrupted." },
-          {id: 13, T: '', F:'', P:'',  transcript:''},
-          {id: 15, T: '', F:'', P:'',  transcript:''},
+          {id: 11, T: 'speech', F:'mid', P:'consonant',  explanation:"This <T>voiced</T> region exhibits harmonic degradation in the <F>mid-frequency band</F> during the <P>consonant \"v\"</P>. The visual evidence shows smeared harmonic stacks instead of clean, periodic patterns, which directly translates to a metallic-sounding speech artifact where the natural harmonic structure is disrupted." },
+          {id: 13, T: 'non_speech', F:'low', P:'unvoiced',  explanation:'This <F>low-frequency</F> region shows noise flattening in <P>unvoiced</P> segments, visible as a uniform sheet of noise with little spectral speckle. This smoothing suppresses the natural variability of vocal tract noise, producing an airless quality that reduces the sense of genuineness in the speech.'},
+          {id: 15, T: 'speech', F:'low', P:'consonant',  explanation:'This <T>voiced</T> region shows harmonic degradation in the <F>low-frequency band</F>. Instead of the sharp transient expected from a <P>consonant</P>, the pattern looks smeared and grainy. This weakens the clean structure of the sound and gives it a slightly metallic quality.'},
         ] },
-    { id: "2", filename: "hn-sinc-nsf-hifi_LA_T_3725354", spec: "hn-sinc-nsf-hifi.png", regions:[
-      {id: 3, T: '', F:'', P:'',  transcript:"" },
-      {id: 10, T: '', F:'', P:'',  transcript:"" },
-      {id: 13, T: '', F:'', P:'',  transcript:"" }
-    ] },
     { id: "3", filename: "hn-sinc-nsf_LA_T_3965355", spec: "hn-sinc-nsf.png", regions:[
-      {id: 3, T: '', F:'', P:'',  transcript:"" }, 
-      {id: 12, T: '', F:'', P:'',  transcript:"" }, 
-      {id: 13, T: '', F:'', P:'',  transcript:"" }
+      {id: 3, T: 'speech', F:'high', P:'vowel',  explanation:"This <T>voiced</T> region shows formant fading in the <F>high-frequency</F> <P>vowel</P> range, where genuine speech would normally retain clear formant structure. The weakening of formant bands above 3.5 kHz gives the vowel a hollow quality, reducing the natural resonance expected in authentic speech." }, 
+      {id: 12, T: 'speech', F:'mid', P:'consonant',  explanation:"This <T>speech</T> region in the <F>mid-frequency band</F> shows harmonic degradation, where the sharp transient burst expected for the <P>\"t\" consonant</P> is replaced by a smeared, grainy spread of energy. This artifact gives the consonant a metallic quality." }, 
+      {id: 13, T: 'non_speech', F:'low', P:'unvoiced',  explanation:"This <P>unvoiced</P> region in the <F>low-frequency band</F> shows noise flattening, where the absence of granular spectral speckle creates an unnaturally uniform noise profile. This gives the sibilance a hollow quality and removes the organic background noise expected in natural speech." }
     ]},
+    { id: "2", filename: "hn-sinc-nsf-hifi_LA_T_3725354", spec: "hn-sinc-nsf-hifi.png", regions:[
+      {id: 3, T: 'speech', F:'high', P:'vowel',  explanation:"This <T>voiced</T> region in the <F>high-frequency band</F> shows harmonic degradation, where the <P>vowel</P>'s harmonic structure appears smeared rather than cleanly stacked. This gives the vowel a metallic quality and makes it sound less natural than genuine speech." },
+      {id: 10, T: 'speech', F:'mid', P:'consonant',  explanation:"In this <T>speech</T> region, the <P>consonant</P> segment within the <F>mid-frequency band</F> exhibits noise flattening, with the spectral fluctuations expected in genuine speech replaced by an unnaturally smooth noise layer. This results in an airless, hollow consonant quality that lacks the organic texture of authentic speech." },
+      {id: 13, T: 'non_speech', F:'low', P:'unvoiced',  explanation:"This <P>unvoiced</P> region in the <F>low-frequency band</F> shows noise flattening, where the absence of granular spectral speckle creates an unnaturally uniform noise profile. This gives the sibilance a hollow quality and removes the organic background noise expected in natural speech." }
+    ] },
     { id: "4", filename: "waveglow_LA_D_2407623", spec: "waveglow.png", regions:[
-      {id: 4, T: '', F:'', P:'',  transcript:"" }, 
-      {id: 9, T: '', F:'', P:'',  transcript:"" }, 
-      {id: 13, T: '', F:'', P:'',  transcript:"" }
+      {id: 4, T: 'speech', F:'high', P:'consonant',  explanation:"This <T>speech</T> region shows periodic texture, with low-frequency patterns duplicated into the <F>high-frequency band</F> instead of the irregular energy bursts expected in a genuine <P>fricative</P>. This gives the speech a robotic quality." }, 
+      {id: 9, T: 'non_speech', F:'mid', P:'unvoiced',  explanation:"In this <F>mid-frequency</F> <T>non-speech</T> region, noise flattening appears as a uniform noise layer with reduced spectral speckle. The resulting airless quality departs from the textured variability of authentic audio." }, 
+      {id: 13, T: 'non_speech', F:'low', P:'unvoiced',  explanation:"This <P>unvoiced</P> region in the <F>low-frequency band</F> shows noise flattening, where the absence of granular spectral speckle creates an unnaturally uniform noise profile. This gives the sibilance a hollow quality and removes the organic background noise expected in natural speech." }
     ] }
   ];
 
@@ -208,7 +208,7 @@ export default function App() {
           {showVLMOutput2 && (
             <>
               <RobotMessage>
-                <FeatureBreakdown />
+                <FeatureBreakdown selectedFileObj={selectedFileObj} />
               </RobotMessage>
               
               {/* Restart Button */}

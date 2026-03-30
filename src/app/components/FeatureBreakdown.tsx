@@ -1,9 +1,24 @@
 import { FileText } from "lucide-react";
 import { useState } from "react";
 
-export function FeatureBreakdown() {
-  const regions = [
-    {
+interface FeatureBreakdownProps {
+  selectedFileObj?: {
+    id: string;
+    filename: string;
+    spec: string;
+    regions: Array<{
+      id: number;
+      T: string;
+      F: string;
+      P: string;
+      explanation: string;
+    }>;
+  };
+}
+
+export function FeatureBreakdown({ selectedFileObj }: FeatureBreakdownProps) {
+  const regions = selectedFileObj?.regions || [
+    /*{
       id: 'x',
       timing: '0.5-1.2s',
       frequency: '3.5-4.2 kHz',
@@ -23,7 +38,7 @@ export function FeatureBreakdown() {
       frequency: '0.8-1.5 kHz',
       phonetic: 'Nasal',
       explanation: 'Anomalous energy distribution patterns that deviate from expected vocal formant structure. Spectral characteristics inconsistent with biological voice production.'
-    }
+    } */
   ];
 
   return (
@@ -37,17 +52,17 @@ export function FeatureBreakdown() {
               <div className="flex gap-2 items-start flex-shrink-0">
                 <span className="text-sm font-bold">Region {region.id}:</span>
                 <span className="text-xs font-semibold px-2 py-0.5 rounded bg-blue-200 text-blue-800">
-                  T: {region.timing}
+                  T: { region.T}
                 </span>
                 <span className="text-xs font-semibold px-2 py-0.5 rounded bg-green-200 text-green-800">
-                  F: {region.frequency}
+                  F: { region.F}
                 </span>
                 <span className="text-xs font-semibold px-2 py-0.5 rounded bg-purple-200 text-purple-800">
-                  P: {region.phonetic}
+                  P: { region.P}
                 </span>
               </div>
             </div>
-            <p className="text-sm mt-2 text-gray-700">{region.explanation}</p>
+            <p className="text-sm mt-2 text-gray-700">{region.explanation }</p>
           </div>
         ))}
       </div>
