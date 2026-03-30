@@ -41,6 +41,45 @@ export function FeatureBreakdown({ selectedFileObj }: FeatureBreakdownProps) {
     } */
   ];
 
+  const renderExplanation = (text: string) => {
+    const parts = text.split(/(<T>|<\/T>|<F>|<\/F>|<P>|<\/P>)/);
+    const result: JSX.Element[] = [];
+    let currentTag = '';
+
+    parts.forEach((part, index) => {
+      if (part === '<T>') {
+        currentTag = 'T';
+      } else if (part === '</T>') {
+        currentTag = '';
+      } else if (part === '<F>') {
+        currentTag = 'F';
+      } else if (part === '</F>') {
+        currentTag = '';
+      } else if (part === '<P>') {
+        currentTag = 'P';
+      } else if (part === '</P>') {
+        currentTag = '';
+      } else if (part) {
+        let className = '';
+        if (currentTag === 'T') {
+          className = 'text-xs font-semibold px-2 py-0.5 rounded bg-blue-200 text-blue-800';
+        } else if (currentTag === 'F') {
+          className = 'text-xs font-semibold px-2 py-0.5 rounded bg-green-200 text-green-800';
+        } else if (currentTag === 'P') {
+          className = 'text-xs font-semibold px-2 py-0.5 rounded bg-purple-200 text-purple-800';
+        }
+
+        result.push(
+          <span key={index} className={className}>
+            {part}
+          </span>
+        );
+      }
+    });
+
+    return result;
+  };
+
   return (
     <div className="bg-white border-2 border-black rounded-2xl p-4 shadow-sm">
       <h3 className="font-bold mb-3 text-sm">Spoof Artifact Analysis by Region</h3>
@@ -52,17 +91,19 @@ export function FeatureBreakdown({ selectedFileObj }: FeatureBreakdownProps) {
               <div className="flex gap-2 items-start flex-shrink-0">
                 <span className="text-sm font-bold">Region {region.id}:</span>
                 <span className="text-xs font-semibold px-2 py-0.5 rounded bg-blue-200 text-blue-800">
-                  T: { region.T}
+                  T: {region.T}
                 </span>
                 <span className="text-xs font-semibold px-2 py-0.5 rounded bg-green-200 text-green-800">
-                  F: { region.F}
+                  frequency: {region.F}
                 </span>
                 <span className="text-xs font-semibold px-2 py-0.5 rounded bg-purple-200 text-purple-800">
-                  P: { region.P}
+                  phonetic: {region.P}
                 </span>
               </div>
             </div>
-            <p className="text-sm mt-2 text-gray-700">{region.explanation }</p>
+            <p className="text-sm mt-2 text-gray-700">
+              {renderExplanation(region.explanation)}
+            </p>
           </div>
         ))}
       </div>
