@@ -1,6 +1,8 @@
+import { Play } from "lucide-react";
+
 interface SpectrogramGridProps {
   stage?: 'none' | 'raw' | 'segmented' | 'highlighted' | 'mask';
-  selectedFile?: { id: string; filename: string; spec: string; regions: Array<{id: number}> };
+  selectedFile?: { id: string; filename: string; spec: string; regions: Array<{id: number}>; audio: string };
 }
 
 export function SpectrogramGrid({ stage = 'none', selectedFile }: SpectrogramGridProps) {
@@ -48,9 +50,29 @@ export function SpectrogramGrid({ stage = 'none', selectedFile }: SpectrogramGri
   if (selectedFile) {
     return (
       <div className="inline-block">
-        <div className="mb-2">
-          <h3 className="text-sm font-bold text-gray-700">{title}</h3>
-        </div>
+      {/* Title with Play Button */}
+      <div className="mb-2 flex items-center justify-between">
+        <h3 className="text-sm font-bold text-gray-700">{title}</h3>
+        { (stage === 'mask' || stage === 'highlighted' || stage === 'segmented' || stage === 'raw') && (
+          <button 
+            className="flex items-center gap-2 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-medium transition-colors"
+            onClick={() => {
+              if (!selectedFile?.audio) {
+                console.warn('No audio file available to play');
+                return;
+              }
+              const audio = new Audio(`/audio/${selectedFile.audio}`);
+              audio.play().catch((error) => {
+                console.error('Play audio failed:', error);
+              });
+            }}
+          >
+            <Play className="size-4" fill="currentColor" />
+            Play Audio
+          </button>
+        )}
+      </div>
+
         <img
           src={`/${folder}/${selectedFile.spec}`}
           alt="Spectrogram"
