@@ -6,7 +6,7 @@ import { RobotMessage } from "./components/RobotMessage";
 import { SystemMessage } from "./components/SystemMessage";
 import { FeatureBreakdown } from "./components/FeatureBreakdown";
 import { SpectrogramGrid } from "./components/SpectrogramGrid";
-import { useState } from "react";
+import { useState, useEffect, useMemo } from "react";
 
 export default function App() {
   const [spectrogramStage, setSpectrogramStage] = useState<'none' | 'raw' | 'segmented' | 'highlighted' | 'mask'>('none');
@@ -42,7 +42,10 @@ export default function App() {
     ] }
   ];
 
-  const selectedFileObj =  files_data.find((f) => f.filename === selectedAudio);
+  const selectedFileObj = useMemo(() => 
+    files_data.find((f) => f.id === selectedAudio), 
+    [selectedAudio, files_data]
+  );
 
   const handlePlayAudio = () => {
     if (!selectedFileObj?.audio) {

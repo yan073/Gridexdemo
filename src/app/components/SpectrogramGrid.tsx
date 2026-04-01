@@ -17,8 +17,24 @@ export function SpectrogramGrid({ stage = 'none', selectedFile }: SpectrogramGri
   if (stage === 'raw' && selectedFile) {
     return (
       <div className="inline-block">
-        <div className="mb-2">
+        <div className="mb-2 flex items-center justify-between">
           <h3 className="text-sm font-bold text-gray-700">Raw Audio Spectrogram</h3>
+          <button 
+            className="flex items-center gap-2 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-medium transition-colors"
+            onClick={() => {
+              if (!selectedFile?.audio) {
+                console.warn('No audio file available to play');
+                return;
+              }
+              const audio = new Audio(`/audio/${selectedFile.audio}`);
+              audio.play().catch((error) => {
+                console.error('Play audio failed:', error);
+              });
+            }}
+          >
+            <Play className="size-4" fill="currentColor" />
+            Play Audio
+          </button>
         </div>
         <img
           src={`/spectrogram/${selectedFile.spec}`}
@@ -53,7 +69,7 @@ export function SpectrogramGrid({ stage = 'none', selectedFile }: SpectrogramGri
       {/* Title with Play Button */}
       <div className="mb-2 flex items-center justify-between">
         <h3 className="text-sm font-bold text-gray-700">{title}</h3>
-        { (stage === 'mask' || stage === 'highlighted' || stage === 'segmented' || stage === 'raw') && (
+        { selectedFile && (
           <button 
             className="flex items-center gap-2 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-medium transition-colors"
             onClick={() => {

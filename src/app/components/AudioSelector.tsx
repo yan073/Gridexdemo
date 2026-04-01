@@ -26,7 +26,7 @@ export function AudioSelector({ onAudioSelect, onConvert, selectedAudio, onAudio
         >
           <option value="">Select audio...</option>
           {files.map((file) => (
-            <option key={file.id} value={file.filename}>
+            <option key={file.id} value={file.id}>
               {file.filename}
             </option>
           ))}
