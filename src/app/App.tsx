@@ -42,7 +42,7 @@ export default function App() {
     ] }
   ];
 
-  const selectedFileObj = files_data.find((f) => f.filename === selectedAudio);
+  const selectedFileObj =  files_data.find((f) => f.filename === selectedAudio);
 
   const handlePlayAudio = () => {
     if (!selectedFileObj?.audio) {
@@ -57,6 +57,7 @@ export default function App() {
   };
 
   const handleAudioSelect = () => {
+    clearAudioInfo();
     setSpectrogramStage('raw');
   };
 
@@ -104,6 +105,11 @@ export default function App() {
   const handleRestart = () => {
     // Reset all state to initial values
     setSpectrogramStage('none');
+    clearAudioInfo();
+    setSelectedAudio('');
+  };
+
+  const clearAudioInfo = () => {
     setIsProcessing(false);
     setShowUserPrompt1(false);
     setShowVLMOutput1(false);
@@ -111,8 +117,7 @@ export default function App() {
     setShowUserPrompt2(false);
     setShowVLMOutput2(false);
     setShowVLMThinking2(false);
-    setSelectedAudio('');
-  };
+  };  
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col">
