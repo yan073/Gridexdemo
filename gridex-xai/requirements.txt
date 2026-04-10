@@ -1,0 +1,19 @@
+# Core numeric/image/audio utilities.
+numpy
+Pillow
+matplotlib
+librosa
+
+# Qwen VLM inference.
+torch
+transformers
+accelerate
+qwen-vl-utils
+
+# Q1 inference defaults to the vLLM backend. Use BACKEND=transformers to avoid this dependency.
+vllm
+
+# Audio-to-word timestamp mapping. util/transcript.py tries whisperx first,
+# then faster-whisper when --backend auto is used.
+whisperx
+faster-whisper
