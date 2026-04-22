@@ -1,0 +1,31 @@
+# to run util/transcript.py
+
+conda create --prefix /scratch3/yan073/conda/gridex2 python=3.10.19
+conda activate /scratch3/yan073/conda/gridex2
+
+conda install -c conda-forge ffmpeg
+
+# 1. Install CUDA-compatible torch explicitly
+pip install torch==2.4.1+cu121 torchvision==0.19.1+cu121 --index-url https://download.pytorch.org/whl/cu121
+
+# 2. Install whisperx WITHOUT pulling deps
+pip install whisperx==3.3.1 --no-deps
+
+# 3. Install remaining deps manually
+pip install faster-whisper pyannote.audio
+
+there is still error in the env. A possible better process is:
+
+conda create -n whisperx_env python=3.10 -y
+conda activate whisperx_env
+pip install torch==2.4.1+cu121 torchvision==0.19.1+cu121 \
+  --index-url https://download.pytorch.org/whl/cu121
+conda install -c conda-forge ffmpeg -y
+export LD_LIBRARY_PATH=$CONDA_PREFIX/lib:$LD_LIBRARY_PATH
+pip install whisperx==3.3.1 --no-deps
+pip install \
+  faster-whisper==1.1.0 \
+  pyannote.audio==3.3.2 \
+  ctranslate2==4.4.0 \
+  transformers \
+  nltk

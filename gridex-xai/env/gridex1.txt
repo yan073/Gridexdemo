@@ -1,0 +1,17 @@
+# this environment works with util/make_specs_grid_768.py, 
+conda create --prefix /scratch3/yan073/conda/gridex python=3.10.19
+conda activate /scratch3/yan073/conda/gridex
+
+pip install torch # (2.9.1)
+pip install numpy==2.2.6
+pip install librosa==0.11.0 # 
+pip install matplotlib==3.10.8 # 
+pip install torchaudio
+pip install torchvision
+pip install pyyaml 
+pip install blobfile
+pip install tqdm
+pip install scikit-learn
+pip install transformers
+pip install vllm==0.15.1
+
