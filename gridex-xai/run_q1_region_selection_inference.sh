@@ -1,14 +1,6 @@
 #!/bin/bash
 set -euo pipefail
 
-if [ -f "$HOME/.bashrc" ]; then
-  source "$HOME/.bashrc"
-fi
-
-if command -v conda >/dev/null 2>&1; then
-  eval "$(conda shell.bash hook)"
-fi
-
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 QWEN_VL_DIR="${QWEN_VL_DIR:-${SCRIPT_DIR}}"
 MODEL_ID="${MODEL_ID:-/datasets/work/dss-deepfake-audio/work/data/datasets/interspeech/final_run/GRPO-1/stage2_grpo1_from_v44_ckpt2579_1epoch/v0-20260301-102003/checkpoint-1500-merged}"
@@ -34,7 +26,6 @@ echo "[run] RUN_DIR=${RUN_DIR}"
 echo "[run] MERGED_DIR=${MERGED_DIR}"
 echo "[run] SHARD_COUNT=${SHARD_COUNT}"
 
-conda activate vllm
 cd "${SCRIPT_DIR}"
 MODEL_ID="${MODEL_ID}" \
 OUTPUT_BASE_DIR="${OUTPUT_BASE_DIR}" \

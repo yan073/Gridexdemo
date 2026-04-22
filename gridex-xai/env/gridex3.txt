@@ -1,0 +1,10 @@
+conda create --prefix /scratch3/yan073/conda/gridex3 python=3.10.19
+conda activate /scratch3/yan073/conda/gridex3
+# backup gridex3.1
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+# backup gridex3.2 (torch 2.5, cuda 12)
+pip install vllm (vllm-0.19.1, this will upgrade to torch 2.10, flashinfer  )
+# backup gridex3.3
+-- ## pip install ninja
+-- ## pip install git+https://github.com/flashinfer-ai/flashinfer.git
+pip install qwen-vl-utils (qwen-vl-utils-0.0.14)
